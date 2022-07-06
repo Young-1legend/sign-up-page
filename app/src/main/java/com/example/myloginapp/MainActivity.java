@@ -13,11 +13,8 @@ import com.google.android.material.button.MaterialButton;
 import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity {
-
-    String alpahbets_upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    String alphabets_lowerCase= "abcdefghijklmnopqrstuvwxyz";
-    String sybmols= "@#$%^&*()_+";
-    int[] numbers = {0,1,2,3,4,5,6,7,8,9};
+ private TextInputLayout textInputUsername;
+    private TextInputLayout textInputPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,4 +43,53 @@ public class MainActivity extends AppCompatActivity {
 
     }
 }
+
+private Boolean validateUsername() {
+        String name = textInputUsername.getEditText().getText().toString();
+        String noWhiteSpace = "\\A\\w{4,20}\\z";
+        if (name.isEmpty()) {
+            textInputUsername.setError("Field cannot be empty");
+            return false;
+        } else if (textInputUsername.getCounterMaxLength() >= 15) {
+            textInputUsername.setError("Username too long");
+            return false;
+        } else if (name.matches(noWhiteSpace)) {
+            textInputUsername.setError("White spaces are not allowed");
+        } else {
+            textInputUsername.setError(null);
+            return false;
+        }
+        return null;
+    }
+
+    private Boolean validatePassword() {
+        String name = textInputUsername.getEditText().getText().toString();
+
+        String passwordVal = "^" +
+                "(?=.*[a-zA-z])" +
+                "(?=.*[@#$%^&+=])" +
+                "(?=\\s+$)" +
+                ".{4,}" +
+                "$";
+
+        if (name.isEmpty()) {
+            textInputPassword.setError("Field cannot be empty");
+            return false;
+        } else if (!name.matches(passwordVal))
+            textInputUsername.setError("Password is to weak");
+        return false;
+    }
+
+
+    public void registerUser(View view) {
+        if (!validateUsername() | !validatePassword()) {
+            return;
+        }
+
+            String name = textInputUsername.getEditText().getText().toString();
+
+        }
+    }
+
+
 
